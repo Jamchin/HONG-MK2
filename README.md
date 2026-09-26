@@ -24,6 +24,10 @@ The arm has five planned positioning axes: turret yaw, shoulder pitch, elbow pit
 - Defining a serial command format to send joint angles from MATLAB to the ESP32.
 - Evaluating shoulder and elbow loads as the wrist and gripper add mass. The unpowered joints currently drop under gravity, so load capacity and counterbalancing need testing before claiming a usable payload.
 
+## CAD files (SOLIDWORKS)
+
+[Google Drive Folder](https://drive.google.com/drive/folders/1rUqKTxcmgNEenckUri99Z5Um0AfbZbVK?usp=sharing)
+
 ## Control concept
 
 The intended path is **MATLAB sliders → USB serial → ESP32 → joint actuators**. The MATLAB view represents commanded angles; without joint sensors, it cannot confirm the actual position of the physical arm.
