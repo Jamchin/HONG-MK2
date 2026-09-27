@@ -3,17 +3,20 @@
 
 #define Shoulder 19 
 #define Turret 18 
+#define ElbowP 21 
 
 
 //hardware setup
 Servo ShoulderServo;
 Servo TurretServo;
+Servo ElbowPitchServo;
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   ShoulderServo.attach(Shoulder);
   TurretServo.attach(Turret);
+  ElbowPitchServo.attach(ElbowP);
 }
 
 void loop() {
@@ -33,21 +36,24 @@ void loop() {
     }
 
     if (!angles["shoulder_pitch"].is<float>() ||
-        !angles["turret"].is<float>()) {
+        !angles["turret"].is<float>()||
+        !angles["elbow_pitch"].is<float>()
+        
+        ) {
       Serial.println("WARNING: missing or nonnumeric angle");
       return;
     }
 
     int ShoulderTarget = constrain(round(angles["shoulder_pitch"].as<float>()), 0, 180);
-
     int TurretTarget = constrain(round(angles["turret"].as<float>()), 0, 180);
+    int EPitchTarget = constrain(round(angles["elbow_pitch"].as<float>()), 0, 180);
 
     ShoulderServo.write(ShoulderTarget);
     TurretServo.write(TurretTarget);
-
+    ElbowPitchServo.write(EPitchTarget);
 
     Serial.print("Received: ");
-    Serial.println(message);
+    Serial.println(message);for 
   }
 
 }
