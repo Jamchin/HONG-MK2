@@ -10,8 +10,10 @@
 // ===========================
 // Enter your WiFi credentials
 // ===========================
+
+//pointers 
 const char *ssid = "HONG_MK2_CAM";
-const char *password = "Blu3wolf312*";
+const char *password = "08072026";
 
 void startCameraServer();
 void setupLedFlash();
@@ -107,22 +109,41 @@ void setup() {
   setupLedFlash();
 #endif
 
-  WiFi.begin(ssid, password);
-  WiFi.setSleep(false);
+  // TODO: Make board auto connect to a wifi network with the network name and password changeable in the UI 
+  //      - if after 30 seconds nothing happens create its own wifi 
+  //      - will have to make sure whatever I decide that the main control computer is able to get that info 
 
-  Serial.print("WiFi connecting");
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+  // WiFi.begin(ssid, password);
+  // WiFi.setSleep(false);
+
+  // Serial.print("WiFi connecting");
+  // while (WiFi.status() != WL_CONNECTED) {
+  //   delay(500);
+  //   Serial.print(".");
+  // }
+  // Serial.println("");
+  // Serial.println("WiFi connected");
+
+  // startCameraServer();
+
+  // Serial.print("Camera Ready! Use 'http://");
+  // Serial.print(WiFi.localIP());
+  // Serial.println("' to connect");
+  WiFi.mode(WIFI_AP);
+
+  //Create Access point and check if it failed 
+  if(!WiFi.softAP(ssid,password)){
+    Serial.println("ERR: Could not create Wi-Fi network");
+    return;
   }
-  Serial.println("");
-  Serial.println("WiFi connected");
-
   startCameraServer();
 
-  Serial.print("Camera Ready! Use 'http://");
-  Serial.print(WiFi.localIP());
-  Serial.println("' to connect");
+  Serial.print("Connect your laptop to Wi-Fi: ");
+  Serial.println(ssid);
+
+  Serial.print("Then open http://");
+  Serial.println(WiFi.softAPIP());
+
 }
 
 void loop() {
