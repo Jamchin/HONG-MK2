@@ -1,9 +1,9 @@
-#include <ESP32Servo.h>
+#include <Servo.h>
 #include <ArduinoJson.h>
 
-#define Shoulder 19 
-#define Turret 18 
-#define ElbowP 21 
+#define Shoulder 3
+#define Turret 5
+#define ElbowP 6
 
 
 //hardware setup
@@ -53,7 +53,7 @@ void loop() {
     ElbowPitchServo.write(EPitchTarget);
 
     Serial.print("Received: ");
-    Serial.println(message);for 
+    Serial.println(message);
   }
 
 }
