@@ -2,7 +2,7 @@
 
 A personal robotics project combining custom mechanical design, 3D printing, embedded control, and arm kinematics. The goal is a compact arm that can position a gripper and eventually use camera input to help grasp objects.
 
-> **Status:** Active prototype. The mechanical assembly and basic servo testing are underway. The MATLAB control interface, full ESP32 integration, and camera-guided grasping are works in progress.
+> **Status:** Active prototype. The mechanical assembly and basic servo testing are underway. The MATLAB control interface, full Arduino integration, and camera-guided grasping are works in progress.
 
 ## Design
 
@@ -12,16 +12,16 @@ The arm has five planned positioning axes: turret yaw, shoulder pitch, elbow pit
 | --- | --- |
 | Mechanical design | SolidWorks CAD, printed components, carbon-fiber links |
 | Actuation | Servo-driven joints and custom transmissions; additional DC motor actuation under development |
-| Controller | ESP32 with Arduino firmware |
+| Controller | Arduino |
 | Desktop interface | MATLAB / App Designer for joint commands and arm visualization |
 | Future perception | Camera input for assisted object detection and grasping |
 
 ## Current work
 
 - Building and adjusting the joint assemblies, including the elbow-roll bevel gears and belt tensioning.
-- Testing shoulder and elbow servos from the ESP32.
+- Testing shoulder and elbow servos from the Arduino.
 - Developing a MATLAB visualization and slider-based joint controls.
-- Defining a serial command format to send joint angles from MATLAB to the ESP32.
+- Defining a serial command format to send joint angles from MATLAB to the Arduino.
 - Evaluating shoulder and elbow loads as the wrist and gripper add mass. The unpowered joints currently drop under gravity, so load capacity and counterbalancing need testing before claiming a usable payload.
 
 ## CAD files (SOLIDWORKS)
@@ -30,7 +30,7 @@ The arm has five planned positioning axes: turret yaw, shoulder pitch, elbow pit
 
 ## Control concept
 
-The intended path is **MATLAB sliders → USB serial → ESP32 → joint actuators**. The MATLAB view represents commanded angles; without joint sensors, it cannot confirm the actual position of the physical arm.
+The intended path is **MATLAB sliders → USB serial → Arduino → joint actuators**. The MATLAB view represents commanded angles; without joint sensors, it cannot confirm the actual position of the physical arm.
 
 A proposed newline-delimited JSON command is:
 
@@ -43,10 +43,7 @@ The firmware should validate each field and clamp commands to tested mechanical 
 ## Next steps
 
 1. Establish safe angle ranges and servo zero positions for each assembled joint.
-2. Finish the ESP32 command parser and test one joint at a time.
-3. Connect the MATLAB interface to the hardware and compare commanded versus observed motion.
-4. Measure joint loads with the gripper installed and refine the counterbalance and transmissions.
-5. Add camera display and explore vision-assisted grasping.
+2. Finish electronics integration and test elbow_roll and wrist pitch
 
 ## Repository notes
 
